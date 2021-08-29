@@ -1,17 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
-using CarteiraPet.WebApp.Data;
+using CarteiraPet.Infra.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace CarteiraPet.WebApp
 {
@@ -28,17 +23,24 @@ namespace CarteiraPet.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
+                options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDatabaseDeveloperPageExceptionFilter();
+           // services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+           services.AddDefaultIdentity<IdentityUser>(options =>
+               {
+                   options.SignIn.RequireConfirmedAccount = false;
+                   options.Password.RequireDigit = false;
+                   options.Password.RequireUppercase = false;
+                   options.Password.RequireNonAlphanumeric = false;
+                   options.Password.RequiredUniqueChars = 0;
+               })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+           services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dataContext)
         {
             if (env.IsDevelopment())
             {
@@ -51,7 +53,9 @@ namespace CarteiraPet.WebApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
+            dataContext.Database.Migrate();
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
