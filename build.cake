@@ -50,7 +50,7 @@ Task("DrySetup")
 });
 
 Task("Teardown")
-    .Description("Clean-up test resources")
+    .Description("Clean-up resources")
     .Does(() => {
         RunTarget("RemoveSqlServerContainer");
         RunTarget("RemoveMongoContainer");
@@ -69,10 +69,11 @@ Task("RunSqlServer")
               Name = containerSqlServer,
               Publish = new [] {"1433:1433"},
               Rm = true,
+              Volume = new [] {"sqlServerVolume:/var/opt/mssql"},
               Env = new [] {
                  "ACCEPT_EULA=Y",
                  "SA_PASSWORD=YourStrong@Passw0rd"
-              }
+              },                            
         },
         "mcr.microsoft.com/mssql/server:2017-latest", "");
 });

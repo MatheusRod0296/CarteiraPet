@@ -1,5 +1,3 @@
-using System;
-
 namespace CarteiraPet.WebApp.Models
 {
     public class ErrorViewModel

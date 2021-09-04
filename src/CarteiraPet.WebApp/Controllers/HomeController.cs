@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using CarteiraPet.Commom.extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using CarteiraPet.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
+using Serilog;
+
 
 namespace CarteiraPet.WebApp.Controllers
 {
@@ -21,12 +20,15 @@ namespace CarteiraPet.WebApp.Controllers
 
         public IActionResult Index()
         {
+            Log.Logger.Important("PrivacyController");
             return View();
         }
         
         [Authorize]
         public IActionResult Privacy()
         {
+            Log.Logger.Logtrace(new TraceCustomLog("1234", true, "PrivacyMethod"));
+            
             return View();
         }
 
