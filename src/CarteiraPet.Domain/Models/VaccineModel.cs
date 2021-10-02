@@ -1,6 +1,6 @@
 namespace CarteiraPet.Domain.Models
 {
-    public class VaccineModel : MedicationModel
+    public class VaccineModel: MedicationModel
     {
         
     }

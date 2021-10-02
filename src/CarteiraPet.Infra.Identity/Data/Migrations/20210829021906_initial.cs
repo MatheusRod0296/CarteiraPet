@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CarteiraPet.Infra.Data.Migrations
+namespace CarteiraPet.Infra.Identity.Data.Migrations
 {
     public partial class initial : Migration
     {

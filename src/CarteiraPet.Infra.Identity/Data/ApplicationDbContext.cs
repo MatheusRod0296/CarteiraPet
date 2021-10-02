@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CarteiraPet.Infra.Data
+namespace CarteiraPet.Infra.Identity.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

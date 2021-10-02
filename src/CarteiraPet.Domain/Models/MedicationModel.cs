@@ -9,5 +9,8 @@ namespace CarteiraPet.Domain.Models
         public string Name { get; set; }
         public string VeterinarianName { get; set; }
         public string Address { get; set; }
+        
+        public Guid PetId { get; set; }
+        public PetModel Pet { get; set; }
     }
 }

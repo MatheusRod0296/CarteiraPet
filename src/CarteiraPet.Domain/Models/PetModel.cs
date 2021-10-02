@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 using CarteiraPet.Domain.Enums;
 
 namespace CarteiraPet.Domain.Models
@@ -13,9 +12,10 @@ namespace CarteiraPet.Domain.Models
         public Sex Sex { get; set; }
         public IEnumerable<WeighingModel> Weighings { get; set; }
         public IEnumerable<VaccineModel> Vaccines { get; set; }
-        public IEnumerable<DewormingModel> Dewormings { get; set; }
-        public IEnumerable<MedicationModel> NextMedications { get; set; }
         public IEnumerable<NoteModel> Notes { get; set; }
+        
+        public Guid ProfileId { get; set; }
+        public ProfileModel Profile { get; set; }
         
     }
 }
