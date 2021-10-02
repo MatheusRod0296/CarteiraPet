@@ -1,0 +1,19 @@
+@model CarteiraPet.WebApp.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<form method="post" asp-controller="Profile" asp-action="CreateProfile">
+    <td>
+        <input type="text" class="form-control" id="Name" name="Name"/>
+    </td>
+    <td>
+        <div>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-sync"></i>
+                Enviar
+            </button>
+        </div>
+    </td>
+</form>

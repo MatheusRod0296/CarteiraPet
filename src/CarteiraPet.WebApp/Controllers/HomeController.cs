@@ -3,19 +3,15 @@ using CarteiraPet.Commom.extensions;
 using Microsoft.AspNetCore.Mvc;
 using CarteiraPet.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
 using Serilog;
-
 
 namespace CarteiraPet.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+           
         }
 
         public IActionResult Index()
