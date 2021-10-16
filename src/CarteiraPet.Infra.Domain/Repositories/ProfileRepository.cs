@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using CarteiraPet.Domain.Interfaces.Repositories;
 using CarteiraPet.Domain.Models;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarteiraPet.Infra.Domain.Repositories
 {
-    public class ProfileRepository: IProfileRepository
+    public class ProfileRepository : IProfileRepository
     {
         private readonly CarteiraPetContext _context;
 
@@ -20,6 +21,15 @@ namespace CarteiraPet.Infra.Domain.Repositories
             _context.Profile.Add(profile);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> Update(ProfileModel profile)
+        {
+            _context.Profile.Update(profile);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<ProfileModel> GetByEmail(string email) =>
+            _context.Profile.FirstOrDefault(x => x.Email == email);
 
         public async Task<bool> ExistProfile(string email)
         {

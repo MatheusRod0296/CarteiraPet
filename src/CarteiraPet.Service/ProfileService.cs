@@ -16,16 +16,18 @@ namespace CarteiraPet.Service
             _profileRepository = profileRepository;
         }
 
-        public async Task<bool> Insert(ProfileModel profile)
+        public async Task<bool> Insert(ProfileModel profileFromView)
         {
             try
             {
-                var existProfile = await _profileRepository.ExistProfile(profile.Email);
+                var profile = await _profileRepository.GetByEmail(profileFromView.Email);
 
-                if (!existProfile)
-                    return await _profileRepository.Insert(profile);
+                if (profile is null)
+                    return await _profileRepository.Insert(profileFromView);
 
-                return false;
+                profile.Update(profileFromView.Name);
+
+                return await _profileRepository.Update(profile);
             }
             catch (Exception e)
             {
@@ -33,5 +35,8 @@ namespace CarteiraPet.Service
                 return false;
             }
         }
+
+        public async Task<ProfileModel> Get(string email) => await _profileRepository.GetByEmail(email);
+        
     }
 }

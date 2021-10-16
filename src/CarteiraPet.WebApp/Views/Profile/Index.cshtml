@@ -5,15 +5,20 @@
 }
 
 <form method="post" asp-controller="Profile" asp-action="CreateProfile">
-    <td>
-        <input type="text" class="form-control" id="Name" name="Name"/>
-    </td>
-    <td>
-        <div>
-            <button type="submit" class="btn btn-success">
-                <i class="fas fa-sync"></i>
-                Enviar
-            </button>
-        </div>
-    </td>
+    <label>Email</label>
+    <input type="text" disabled class="form-control mb-2" id="Email" name="Email" value="@Html.DisplayFor(m => m.Email)"/>
+
+    <label>Nome</label>
+    <input type="text" class="form-control mb-2" id="Name" name="Name" value="@Html.DisplayFor(m => m.Name)"/>
+    
+    @if (Model.Name == null)
+    {
+        <button type="submit" class="btn btn-success">Enviar</button> 
+    }
+    else
+    {
+        <button type="submit" class="btn btn-success">Atualizar</button> 
+    }
+    
+    
 </form>

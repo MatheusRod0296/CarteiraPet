@@ -1,13 +1,25 @@
 using System.Collections.Generic;
+using System.Data;
 
 namespace CarteiraPet.Domain.Models
 {
     public class ProfileModel : BaseEntity
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
+        protected ProfileModel() { }
+        public ProfileModel(string email, string name)
+        {
+            Name = name;
+            Email = email;
+        }
+        public string Name { get; private set; }
+        public string Email { get; private set; }
         
         public IEnumerable<PetModel> Pets { get; set; }
+
+        public void Update(string name)
+        {
+            Name = name;
+        }
     }
 }
     

@@ -19,7 +19,16 @@ namespace CarteiraPet.WebApp.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View();
+            var email = User.Identity.Name;
+            var profile = await _service.Get(email);
+            
+            var profileVM = new ProfileViewModel
+            {
+                Email = email,
+                Name = profile.Name
+            };
+                
+            return View(profileVM);
         }
         
         [Authorize]
@@ -28,12 +37,7 @@ namespace CarteiraPet.WebApp.Controllers
         public async Task<IActionResult> CreateProfile(ProfileViewModel profileWM)
         {
             var email = User.Identity.Name;
-            
-            var profile = new ProfileModel
-            {
-                Name = profileWM.Name,
-                Email = email
-            };
+            var profile = new ProfileModel(email, profileWM.Name);
 
             var result = await _service.Insert(profile);
             return View();
