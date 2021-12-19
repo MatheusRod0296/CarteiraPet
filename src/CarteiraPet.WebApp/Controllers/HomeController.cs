@@ -1,32 +1,29 @@
 ﻿using System.Diagnostics;
 using CarteiraPet.Commom.extensions;
-using Microsoft.AspNetCore.Mvc;
+using CarteiraPet.Domain.Interfaces.Services;
 using CarteiraPet.WebApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
 namespace CarteiraPet.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly IProfileService _service;
+        
+        public HomeController(IProfileService service)
         {
-           
+            _service = service;
+          
         }
 
         public IActionResult Index()
         {
-            Log.Logger.Important("PrivacyController");
+            Log.Logger.Important("HomeController");
             return View();
         }
-        
-        [Authorize]
-        public IActionResult Privacy()
-        {
-            Log.Logger.Logtrace(new TraceCustomLog("1234", true, "PrivacyMethod"));
-            
-            return View();
-        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

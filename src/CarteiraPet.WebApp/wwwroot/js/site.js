@@ -2,3 +2,11 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+$("#files").change(function () {
+    filename = this.files[0].name
+    document.getElementById('choosePhoto').innerText = filename;
+    console.log(filename);
+});
+
+

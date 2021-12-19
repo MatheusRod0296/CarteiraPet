@@ -4,7 +4,7 @@
     ViewData["Title"] = "Profile";
 }
 
-<form method="post" asp-controller="Profile" asp-action="CreateProfile">
+<form method="post" asp-controller="Profile" asp-action="Create">
     <label>Email</label>
     <input type="text" disabled class="form-control mb-2" id="Email" name="Email" value="@Html.DisplayFor(m => m.Email)"/>
 

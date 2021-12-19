@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CarteiraPet.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarteiraPet.Domain.Interfaces.Services
 {

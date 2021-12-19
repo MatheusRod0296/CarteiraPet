@@ -69,3 +69,18 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.img-plus {
+  width: 32px;
+}
+
+.btn-create-pet {
+  margin-left: 1px;
+}
+
+.input-img {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+

@@ -10,31 +10,33 @@ namespace CarteiraPet.WebApp.Controllers
     public class ProfileController: Controller
     {
         private readonly IProfileService _service;
-        
-        public ProfileController(IProfileService service)
+
+        public ProfileController(IProfileService service )
         {
             _service = service;
         }
         
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Form()
         {
             var email = User.Identity.Name;
+            var sss = HttpContext.User.Claims;
+
             var profile = await _service.Get(email);
             
-            var profileVM = new ProfileViewModel
+            var profileVm = new ProfileViewModel
             {
                 Email = email,
                 Name = profile.Name
             };
                 
-            return View(profileVM);
+            return View(profileVm);
         }
         
         [Authorize]
         [HttpPost]
         [Route("profile/add")]
-        public async Task<IActionResult> CreateProfile(ProfileViewModel profileWM)
+        public async Task<IActionResult> Create(ProfileViewModel profileWM)
         {
             var email = User.Identity.Name;
             var profile = new ProfileModel(email, profileWM.Name);

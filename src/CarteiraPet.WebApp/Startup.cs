@@ -1,10 +1,10 @@
+using CarteiraPet.Infra;
 using CarteiraPet.Infra.Domain.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using CarteiraPet.Infra.Identity.Data;
 using CarteiraPet.Ioc;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,7 +29,7 @@ namespace CarteiraPet.WebApp
             services.AddDbContext<CarteiraPetContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("carteirapet")));
            
-           services.AddDefaultIdentity<IdentityUser>(options =>
+           services.AddDefaultIdentity<ApplicationUser>(options =>
                {
                    options.SignIn.RequireConfirmedAccount = false;
                    options.Password.RequireDigit = false;

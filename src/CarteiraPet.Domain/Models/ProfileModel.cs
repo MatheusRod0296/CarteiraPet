@@ -20,6 +20,10 @@ namespace CarteiraPet.Domain.Models
         {
             Name = name;
         }
+
+        public void teste(){
+            var a = new ProfileModel();            
+        }
     }
 }
     

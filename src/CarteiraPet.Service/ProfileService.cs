@@ -10,16 +10,23 @@ namespace CarteiraPet.Service
     public class ProfileService : IProfileService
     {
         private readonly IProfileRepository _profileRepository;
+        private readonly IIdentityUserService _identityUserService;
+        
 
-        public ProfileService(IProfileRepository profileRepository)
+        public ProfileService(IProfileRepository profileRepository,
+            IIdentityUserService identityUserService)
         {
             _profileRepository = profileRepository;
+            _identityUserService = identityUserService;
         }
 
         public async Task<bool> Insert(ProfileModel profileFromView)
         {
             try
             {
+                await _identityUserService.AddFriendlyName(profileFromView.Name);
+                await _identityUserService.AddFrindlyNameClaim(profileFromView.Name);
+                
                 var profile = await _profileRepository.GetByEmail(profileFromView.Email);
 
                 if (profile is null)

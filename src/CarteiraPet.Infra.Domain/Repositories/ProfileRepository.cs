@@ -29,7 +29,7 @@ namespace CarteiraPet.Infra.Domain.Repositories
         }
 
         public async Task<ProfileModel> GetByEmail(string email) =>
-            _context.Profile.FirstOrDefault(x => x.Email == email);
+            await _context.Profile.FirstOrDefaultAsync(x => x.Email == email);
 
         public async Task<bool> ExistProfile(string email)
         {
