@@ -14,12 +14,6 @@
       <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />
       <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.9" />
       <PackageReference Include="Serilog" Version="2.10.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Identity, Version=5.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-        <HintPath>..\..\..\..\..\..\..\usr\share\dotnet\shared\Microsoft.AspNetCore.App\5.0.10\Microsoft.AspNetCore.Identity.dll</HintPath>
-      </Reference>
-    </ItemGroup>
+    </ItemGroup>   
 
 </Project>

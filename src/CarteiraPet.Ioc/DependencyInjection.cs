@@ -19,6 +19,7 @@ namespace CarteiraPet.Ioc
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IIdentityUserService, IdentityUserService>();
+            services.AddScoped<IImageHandlerService, ImageHandlerService>();
             
             services.AddScoped<CarteiraPetContext>();
         }

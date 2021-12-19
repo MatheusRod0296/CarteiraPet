@@ -41,6 +41,8 @@ namespace CarteiraPet.WebApp
            
            services.RegisterServices();
            
+           services.AddHttpContextAccessor();
+           
            services.AddControllersWithViews();
         }
 
