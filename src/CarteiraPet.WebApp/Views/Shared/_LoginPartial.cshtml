@@ -7,7 +7,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Form" title="Manage">
                 Hello @UserManager.GetClaimsAsync(UserManager.GetUserAsync(User).Result).Result?.FirstOrDefault(c =>  c.Type == "friendlyName")?.Value
             </a>
         </li>

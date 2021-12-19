@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using CarteiraPet.Domain.Interfaces.Services;
+using CarteiraPet.Domain.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using CarteiraPet.Infra;
@@ -24,17 +26,23 @@ namespace CarteiraPet.WebApp.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IProfileService _profileService;
+        private readonly IIdentityUserService _identityUserService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IProfileService profileService,
+            IIdentityUserService identityUserService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _profileService = profileService;
+            _identityUserService = identityUserService;
         }
 
         [BindProperty]
@@ -98,6 +106,11 @@ namespace CarteiraPet.WebApp.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        var profileId = await _profileService.Insert(Input.Email, new Guid(user.Id));
+                        // await _identityUserService.AddProfileClaim(user, profileId);
+                        await _identityUserService.AddFriendlyName(user, Input.Email);
+                        await _identityUserService.AddFrindlyNameClaim(user, Input.Email);
+                        
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }

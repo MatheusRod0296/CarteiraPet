@@ -6,8 +6,8 @@ namespace CarteiraPet.Domain.Models
     {
         public BaseEntity()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
-        public Guid Id { get; private set; }
+        public Guid Id { get; protected set; }
     }
 }

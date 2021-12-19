@@ -8,7 +8,7 @@ using Serilog;
 
 namespace CarteiraPet.WebApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AppController
     {
         private readonly IProfileService _service;
         

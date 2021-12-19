@@ -20,20 +20,41 @@ namespace CarteiraPet.Service
             _identityUserService = identityUserService;
         }
 
-        public async Task<bool> Insert(ProfileModel profileFromView)
+        public async Task<bool> Insert(string email, Guid userId)
+        {
+            var result = false;
+            try
+            {
+                var profile = new ProfileModel(email, String.Empty);
+                profile.SetId(userId);
+                
+                if ( _profileRepository.GetByEmail(email).Result is null )
+                {
+                    result =await _profileRepository.Insert(profile);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Logger.Error(e, e.Message);
+            }
+
+            return result;
+        }
+        
+        public async Task<bool> Update(ProfileModel profileFromView)
         {
             try
             {
-                await _identityUserService.AddFriendlyName(profileFromView.Name);
-                await _identityUserService.AddFrindlyNameClaim(profileFromView.Name);
-                
                 var profile = await _profileRepository.GetByEmail(profileFromView.Email);
 
                 if (profile is null)
-                    return await _profileRepository.Insert(profileFromView);
+                    return false;
 
                 profile.Update(profileFromView.Name);
-
+                
+                await _identityUserService.AddFriendlyName(profile.Name);
+                await _identityUserService.AddFrindlyNameClaim(profile.Name);
+                
                 return await _profileRepository.Update(profile);
             }
             catch (Exception e)

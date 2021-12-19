@@ -13,9 +13,11 @@ namespace CarteiraPet.Ioc
         public static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IProfileRepository, ProfileRepository>();
+            services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IIdentityUserRepository, IdentityUserRepository>();
             
             services.AddScoped<IProfileService, ProfileService>();
+            services.AddScoped<IPetService, PetService>();
             services.AddScoped<IIdentityUserService, IdentityUserService>();
             
             services.AddScoped<CarteiraPetContext>();

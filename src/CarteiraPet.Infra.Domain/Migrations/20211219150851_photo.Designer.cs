@@ -4,14 +4,16 @@ using CarteiraPet.Infra.Domain.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarteiraPet.Infra.Domain.Migrations
 {
     [DbContext(typeof(CarteiraPetContext))]
-    partial class CarteiraPetContextModelSnapshot : ModelSnapshot
+    [Migration("20211219150851_photo")]
+    partial class photo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

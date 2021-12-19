@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CarteiraPet.WebApp.Controllers
 {
-    public class ProfileController: Controller
+    public class ProfileController: AppController
     {
         private readonly IProfileService _service;
 
@@ -27,7 +27,7 @@ namespace CarteiraPet.WebApp.Controllers
             var profileVm = new ProfileViewModel
             {
                 Email = email,
-                Name = profile.Name
+                Name = profile?.Name
             };
                 
             return View(profileVm);
@@ -41,7 +41,7 @@ namespace CarteiraPet.WebApp.Controllers
             var email = User.Identity.Name;
             var profile = new ProfileModel(email, profileWM.Name);
 
-            var result = await _service.Insert(profile);
+            var result = await _service.Update(profile);
             return View();
         }
     }
