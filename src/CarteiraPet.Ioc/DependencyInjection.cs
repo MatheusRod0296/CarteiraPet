@@ -1,8 +1,9 @@
 using CarteiraPet.Domain.Interfaces.Repositories;
 using CarteiraPet.Domain.Interfaces.Services;
+using CarteiraPet.Domain.Interfaces.UnitOfWork;
 using CarteiraPet.Infra;
-using CarteiraPet.Infra.Domain.Data;
 using CarteiraPet.Infra.Domain.Repositories;
+using CarteiraPet.Infra.Domain.UnitOfWork;
 using CarteiraPet.Service;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,7 +22,9 @@ namespace CarteiraPet.Ioc
             services.AddScoped<IIdentityUserService, IdentityUserService>();
             services.AddScoped<IImageHandlerService, ImageHandlerService>();
             
-            services.AddScoped<CarteiraPetContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
+            //services.AddSingleton<CarteiraPetContext>();
         }
     }
 }

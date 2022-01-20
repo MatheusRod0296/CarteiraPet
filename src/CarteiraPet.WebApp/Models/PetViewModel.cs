@@ -1,17 +1,16 @@
-using System;
+﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using CarteiraPet.Domain.Enums;
-using Microsoft.AspNetCore.Http;
 
 namespace CarteiraPet.WebApp.Models
 {
-    public class PetCreateViewModel
+    public class PetViewModel
     {
         public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
+        public int Age { get; set; }
         public Sex Sex { get; set; }
-
         [DisplayName("Foto de Perfil")]
-        public IFormFile Photo { get; set; }
+        public string Photo { get; set; }
     }
 }

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using CarteiraPet.Domain.Interfaces.Repositories;
 using CarteiraPet.Domain.Models;
@@ -16,16 +15,16 @@ namespace CarteiraPet.Infra.Domain.Repositories
             _context = context;
         }
 
-        public async Task<bool> Insert(ProfileModel profile)
+        public Task Insert(ProfileModel profile)
         {
             _context.Profile.Add(profile);
-            return await _context.SaveChangesAsync() > 0;
+            return Task.CompletedTask;
         }
 
-        public async Task<bool> Update(ProfileModel profile)
+        public Task Update(ProfileModel profile)
         {
             _context.Profile.Update(profile);
-            return await _context.SaveChangesAsync() > 0;
+            return Task.CompletedTask;
         }
 
         public async Task<ProfileModel> GetByEmail(string email) =>

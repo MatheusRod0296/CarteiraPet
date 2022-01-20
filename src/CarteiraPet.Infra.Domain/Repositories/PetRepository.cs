@@ -1,7 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CarteiraPet.Domain.Interfaces.Repositories;
 using CarteiraPet.Domain.Models;
 using CarteiraPet.Infra.Domain.Data;
+using Microsoft.EntityFrameworkCore;
 namespace CarteiraPet.Infra.Domain.Repositories
 {
     public class PetRepository : IPetRepository
@@ -13,10 +17,14 @@ namespace CarteiraPet.Infra.Domain.Repositories
             _context = context;
         }
         
-        public async Task<bool> Insert(PetModel pet)
+        public Task Insert(PetModel pet)
         {
             _context.Pet.Add(pet);
-            return await _context.SaveChangesAsync() > 0;
+            return Task.CompletedTask;
+        }
+        public Task<List<PetModel>> Get(Guid profileId)
+        {
+            return _context.Pet.Where(x => x.ProfileId == profileId).ToListAsync();
         }
     }
 }

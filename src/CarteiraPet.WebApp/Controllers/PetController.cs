@@ -12,10 +12,12 @@ namespace CarteiraPet.WebApp.Controllers
     [Authorize]
     public class PetController: AppController
     {
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromServices] IPetService petService)
         {
             Log.Logger.Logtrace(new TraceCustomLog("1234", true, "Pet Index"));
-            return View();
+            var pets = await petService.Get(GetUserId());
+            
+            return View(pets);
         }
         
         public async Task<IActionResult> CreateForm()
@@ -30,20 +32,19 @@ namespace CarteiraPet.WebApp.Controllers
             PetCreateViewModel petWM)
         {
             Log.Logger.Logtrace(new TraceCustomLog("1234", true, "Pet Insert"));
-            var img64 = await _imageHandlerService.ConvertImageTo64Base(petWM.Photo);
+            var photo = await _imageHandlerService.ConvertImageTo64Base(petWM.Photo);
             
             var pet = new PetModel(
                 petWM.Name,
                 petWM.BirthDate,
                 petWM.Sex,
-                img64,
+                photo,
                 GetUserId()
             );
 
             await petService.Create(pet);
             
-            return View("Index");
+            return Redirect("index");
         }
-
     }
 }

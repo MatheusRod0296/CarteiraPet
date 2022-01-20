@@ -107,7 +107,7 @@ namespace CarteiraPet.WebApp.Areas.Identity.Pages.Account
                     else
                     {
                         var profileId = await _profileService.Insert(Input.Email, new Guid(user.Id));
-                        // await _identityUserService.AddProfileClaim(user, profileId);
+                       
                         await _identityUserService.AddFriendlyName(user, Input.Email);
                         await _identityUserService.AddFrindlyNameClaim(user, Input.Email);
                         

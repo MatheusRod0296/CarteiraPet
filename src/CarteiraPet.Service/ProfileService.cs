@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using CarteiraPet.Domain.Interfaces.Repositories;
 using CarteiraPet.Domain.Interfaces.Services;
+using CarteiraPet.Domain.Interfaces.UnitOfWork;
 using CarteiraPet.Domain.Models;
 using Serilog;
 
@@ -11,13 +12,14 @@ namespace CarteiraPet.Service
     {
         private readonly IProfileRepository _profileRepository;
         private readonly IIdentityUserService _identityUserService;
-        
-
+        private readonly IUnitOfWork _unitOfWork;
         public ProfileService(IProfileRepository profileRepository,
-            IIdentityUserService identityUserService)
+            IIdentityUserService identityUserService,
+            IUnitOfWork unitOfWork)
         {
             _profileRepository = profileRepository;
             _identityUserService = identityUserService;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<bool> Insert(string email, Guid userId)
@@ -30,7 +32,8 @@ namespace CarteiraPet.Service
                 
                 if ( _profileRepository.GetByEmail(email).Result is null )
                 {
-                    result =await _profileRepository.Insert(profile);
+                    await _profileRepository.Insert(profile);
+                    return await _unitOfWork.Commit();
                 }
             }
             catch (Exception e)
@@ -55,7 +58,8 @@ namespace CarteiraPet.Service
                 await _identityUserService.AddFriendlyName(profile.Name);
                 await _identityUserService.AddFrindlyNameClaim(profile.Name);
                 
-                return await _profileRepository.Update(profile);
+                await _profileRepository.Update(profile);
+                return await _unitOfWork.Commit();
             }
             catch (Exception e)
             {

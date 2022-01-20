@@ -1,14 +1,20 @@
+@model IEnumerable<CarteiraPet.Domain.Models.PetModel>
+
 <div>
-    <a type="button" class="btn btn-primary btn-create-pet" asp-controller="Pet" asp-action="CreateForm">Adicionar Pet</a>
+    <a type="button" class="btn btn-primary btn-create-pet" style="margin: 5px;" asp-controller="Pet" asp-action="CreateForm">Adicionar Pet</a>
 </div>
 
-<div class="card" style="width: 16rem;">
-    <img src="~/img/cachorro.jpg" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Bob</h5>
-        <p class="card-text">3 kg.</p>
-        <p class="card-text">02 anos.</p>
-
-        <a href="#" class="btn btn-primary">Ver Carteira</a>
-    </div>
+<div class="d-flex flex-wrap justify-content-center">
+   @foreach (var pet in Model)
+   {
+       <div class="card" style="width: 16rem; margin: 5px">
+           <img src="@Html.DisplayFor(m => pet.Photo)" class="card-img-top" alt="...">
+           <div class="card-body">
+               <h5 class="card-title">@Html.DisplayFor(m => pet.Name)</h5>
+               <p class="card-text">@Html.DisplayFor(m => pet.Age)</p>
+   
+               <a href="#" class="btn btn-primary">Ver Carteira</a>
+           </div>
+       </div> 
+   } 
 </div>

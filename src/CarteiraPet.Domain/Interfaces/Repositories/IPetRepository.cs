@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using CarteiraPet.Domain.Models;
 namespace CarteiraPet.Domain.Interfaces.Repositories
 {
     public interface IPetRepository
     {
-        Task<bool> Insert(PetModel pet);
+        Task Insert(PetModel pet);
+        Task<List<PetModel>> Get(Guid profileId);
     }
 }

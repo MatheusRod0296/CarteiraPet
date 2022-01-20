@@ -11,9 +11,9 @@ namespace CarteiraPet.Service
         public Task<string> ConvertImageTo64Base(IFormFile file)
         {
             string base64 = String.Empty;
-            if (file.Length > 0)
+            if ( file.Length > 0 )
             {
-                using (var ms = new MemoryStream())
+                using ( var ms = new MemoryStream() )
                 {
                     file.CopyTo(ms);
                     var fileBytes = ms.ToArray();
@@ -21,7 +21,7 @@ namespace CarteiraPet.Service
                 }
             }
 
-            return Task.FromResult(base64);
+            return Task.FromResult("data:image/png;base64," +base64);
         }
     }
 }
