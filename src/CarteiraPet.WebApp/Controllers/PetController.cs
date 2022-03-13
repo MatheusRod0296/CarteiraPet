@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using CarteiraPet.Commom.extensions;
 using CarteiraPet.Domain.Interfaces.Services;
@@ -23,6 +24,7 @@ namespace CarteiraPet.WebApp.Controllers
         public async Task<IActionResult> CreateForm()
         {
             Log.Logger.Logtrace(new TraceCustomLog("1234", true, "Pet Insert"));
+            ViewData["maxDate"] = DateTime.Now.ToString("yyyy-MM-dd");
             return View();
         }
         
@@ -32,12 +34,17 @@ namespace CarteiraPet.WebApp.Controllers
             PetCreateViewModel petWM)
         {
             Log.Logger.Logtrace(new TraceCustomLog("1234", true, "Pet Insert"));
+            if (!ModelState.IsValid)
+            {
+                return View("CreateForm");
+            }
+           
             var photo = await _imageHandlerService.ConvertImageTo64Base(petWM.Photo);
             
             var pet = new PetModel(
                 petWM.Name,
-                petWM.BirthDate,
-                petWM.Sex,
+                petWM.BirthDate.Value,
+                petWM.Sex.Value,
                 photo,
                 GetUserId()
             );

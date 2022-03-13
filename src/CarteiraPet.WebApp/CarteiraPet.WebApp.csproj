@@ -34,4 +34,8 @@
       <ProjectReference Include="..\CarteiraPet.Ioc\CarteiraPet.Ioc.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="appsettings.Test.json" />
+    </ItemGroup>
+
 </Project>
