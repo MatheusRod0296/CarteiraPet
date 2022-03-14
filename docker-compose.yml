@@ -8,7 +8,16 @@ services:
     volumes:
       - ../../sqlServerVolume:/var/opt/mssql
     ports:
-      - "1433:1433"
+      - "1401:1433"
+    environment:
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
+      
+  sql-server-test:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    container_name: SqlServerTest    
+    ports:
+      - "1402:1433"
     environment:
       SA_PASSWORD: "YourStrong@Passw0rd"
       ACCEPT_EULA: "Y"

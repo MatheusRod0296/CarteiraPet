@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using Bogus;
 using Xunit;
 namespace CarteiraPet.IntegrationTests.Fixtures
 {
@@ -13,10 +14,14 @@ namespace CarteiraPet.IntegrationTests.Fixtures
         
         public readonly CarteiraPetFactory Factory;
         public HttpClient Client;
-        
+        public Faker _faker;
+        public string _emailUser = string.Empty;
+        public string _passwordUser = string.Empty;
+
         public IntegrationTestsFixture() {
             Factory = new CarteiraPetFactory();
             Client = Factory.CreateClient();
+            _faker = new Faker("pt_BR");
         }
 
         public string GetAntiForgeryToken(string htmlBody)
@@ -27,6 +32,12 @@ namespace CarteiraPet.IntegrationTests.Fixtures
                 return requestVerificationTokenMatch.Groups[1].Captures[0].Value;
 
             throw new ArgumentException($"Anti forgery token '{AntiForgeryFildName}' não encontrado no HTML", htmlBody);
+        }
+
+        public void GenerateUserAndPassword()
+        {
+            _emailUser = _faker.Internet.Email();
+            _passwordUser = _faker.Internet.Password(8, false, "", "A@a");
         }
 
         public void Dispose()
