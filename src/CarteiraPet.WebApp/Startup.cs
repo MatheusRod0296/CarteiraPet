@@ -46,9 +46,9 @@ namespace CarteiraPet.WebApp
            services.AddControllersWithViews();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dataContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationDbContext dataContext, CarteiraPetContext carteiraPetContext)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.EnvironmentName == "Test")
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
@@ -60,6 +60,7 @@ namespace CarteiraPet.WebApp
             }
             
             dataContext.Database.Migrate();
+            carteiraPetContext.Database.Migrate();
             
             app.UseHttpsRedirection();
             app.UseStaticFiles();
