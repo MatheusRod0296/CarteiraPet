@@ -6,7 +6,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2017-latest
     container_name: SqlServer
     volumes:
-      - ../../sqlServerVolume:/var/opt/mssql
+      - sqlServeDev:/var/opt/mssql
     ports:
       - "1401:1433"
     environment:
@@ -30,4 +30,8 @@ services:
     environment:
       PUID: "1000"
       PGID: "1000"
+  
+volumes:
+  sqlServeDev:
+
       

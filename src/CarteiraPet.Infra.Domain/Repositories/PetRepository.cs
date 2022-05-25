@@ -26,5 +26,9 @@ namespace CarteiraPet.Infra.Domain.Repositories
         {
             return _context.Pet.Where(x => x.ProfileId == profileId).ToListAsync();
         }
+        public Task<PetModel> GetById(Guid petId)
+        {
+            return _context.Pet.FirstAsync(x => x.Id == petId);
+        }
     }
 }

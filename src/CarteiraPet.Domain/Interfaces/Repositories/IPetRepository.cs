@@ -8,5 +8,6 @@ namespace CarteiraPet.Domain.Interfaces.Repositories
     {
         Task Insert(PetModel pet);
         Task<List<PetModel>> Get(Guid profileId);
+        Task<PetModel> GetById(Guid petId);
     }
 }

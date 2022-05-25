@@ -27,5 +27,9 @@ namespace CarteiraPet.Service
         {
             return await _petRepository.Get(ProfileId);
         }
+        public async Task<PetModel> GetById(Guid PetId)
+        {
+            return await _petRepository.GetById(PetId);
+        }
     }
 }

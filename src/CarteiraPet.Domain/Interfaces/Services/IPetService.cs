@@ -9,5 +9,7 @@ namespace CarteiraPet.Domain.Interfaces.Services
     {
         Task<bool> Create(PetModel pet);
         Task<List<PetModel>> Get(Guid ProfileId);
+        Task<PetModel> GetById(Guid PetId);
+        
     }
 }

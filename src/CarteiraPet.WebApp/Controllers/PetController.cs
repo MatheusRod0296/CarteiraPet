@@ -27,7 +27,7 @@ namespace CarteiraPet.WebApp.Controllers
             ViewData["maxDate"] = DateTime.Now.ToString("yyyy-MM-dd");
             return View();
         }
-        
+
         public async Task<IActionResult> CreatePet(
             [FromServices] IPetService petService,
             [FromServices] IImageHandlerService _imageHandlerService,
@@ -53,5 +53,13 @@ namespace CarteiraPet.WebApp.Controllers
             
             return Redirect("index");
         }
+
+        public async Task<IActionResult> Get([FromServices] IPetService petService, Guid id)
+        {
+            var pet = await petService.GetById(id);
+            return View(pet);
+        }
+        
+        
     }
 }
