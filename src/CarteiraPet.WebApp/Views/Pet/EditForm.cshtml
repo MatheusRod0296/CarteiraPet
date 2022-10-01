@@ -1,0 +1,42 @@
+@model CarteiraPet.WebApp.Models.PetCreateViewModel
+
+@{
+    ViewData["Title"] = "Edit Pet";
+}
+
+<form method="post" asp-controller="Pet" asp-action="CreatePet" enctype="multipart/form-data">
+    <div class="form-group">
+        <label>Nome</label>
+        <input type="text" class="form-control mb-2" id="Name" name="Name" asp-for="Name"/>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Data de nascimento</label>
+        <input type="date" class="form-control mb-2" id="BirthDate" name="BirthDate" asp-for="BirthDate" max="@ViewData["maxDate"]"/>
+        <span asp-validation-for="BirthDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="selectSexo">Sexo</label>
+        <select class="form-control" id="selectSexo" asp-for="Sex">
+            <option value="0" selected="">Escolha</option>
+            <option value="1">Femea</option>
+            <option value="2">Macho</option>
+        </select>
+        <span asp-validation-for="Sex" class="text-danger"></span>
+    </div>
+
+    <div class="form-group input-img">
+        <label asp-for="Photo" class="control-label"></label>
+        <div>
+            <label for="files" type="button" class="btn btn-primary" class="btn">Escolher foto</label>
+            <label id="choosePhoto"> nenhuma foto escolhida</label>
+            <input id="files" style="visibility:hidden;" type="file" accept="image/*" asp-for="Photo"/>
+           
+        </div>
+        <span asp-validation-for="Photo" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Enviar</button>
+</form>

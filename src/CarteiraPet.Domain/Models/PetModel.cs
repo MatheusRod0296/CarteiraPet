@@ -22,6 +22,7 @@ namespace CarteiraPet.Domain.Models
         public string Age => CalculateAge();
         public Sex Sex { get; set; }
         public string Photo { get; set; }
+        
         public IEnumerable<WeighingModel> Weighings { get; set; }
         public IEnumerable<VaccineModel> Vaccines { get; set; }
         public IEnumerable<NoteModel> Notes { get; set; }

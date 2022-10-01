@@ -11,22 +11,23 @@ using Serilog;
 namespace CarteiraPet.WebApp.Controllers
 {
     [Authorize]
-    public class PetController: AppController
+    public class PetController : AppController
     {
         public async Task<IActionResult> Index([FromServices] IPetService petService)
         {
             Log.Logger.Logtrace(new TraceCustomLog("1234", true, "Pet Index"));
             var pets = await petService.Get(GetUserId());
-            
+
             return View(pets);
         }
-        
+
         public async Task<IActionResult> CreateForm()
         {
-            Log.Logger.Logtrace(new TraceCustomLog("1234", true, "Pet Insert"));
+            Log.Logger.Logtrace(new TraceCustomLog("1234", true, "CreateForm"));
             ViewData["maxDate"] = DateTime.Now.ToString("yyyy-MM-dd");
             return View();
         }
+
 
         public async Task<IActionResult> CreatePet(
             [FromServices] IPetService petService,
@@ -34,13 +35,13 @@ namespace CarteiraPet.WebApp.Controllers
             PetCreateViewModel petWM)
         {
             Log.Logger.Logtrace(new TraceCustomLog("1234", true, "Pet Insert"));
-            if (!ModelState.IsValid)
+            if ( !ModelState.IsValid )
             {
                 return View("CreateForm");
             }
-           
+
             var photo = await _imageHandlerService.ConvertImageTo64Base(petWM.Photo);
-            
+
             var pet = new PetModel(
                 petWM.Name,
                 petWM.BirthDate.Value,
@@ -50,16 +51,35 @@ namespace CarteiraPet.WebApp.Controllers
             );
 
             await petService.Create(pet);
-            
+
             return Redirect("index");
         }
 
+        public async Task<IActionResult> EditForm(
+            [FromServices] IPetService petService,
+            [FromServices] IImageHandlerService _imageHandlerService,
+            Guid id)
+        {
+            Log.Logger.Logtrace(new TraceCustomLog("1234", true, "EditForm"));
+            ViewData["maxDate"] = DateTime.Now.ToString("yyyy-MM-dd");
+            var pet = await petService.GetById(id);
+
+            var viewModel = new PetCreateViewModel
+            {
+                Name = pet.Name,
+                BirthDate = pet.BirthDate,
+                Sex = pet.Sex,
+                //Photo = await _imageHandlerService.Convert64BaseToImage(pet.Photo)
+            };
+            
+            return View(viewModel);
+        }
+
+     
         public async Task<IActionResult> Get([FromServices] IPetService petService, Guid id)
         {
             var pet = await petService.GetById(id);
             return View(pet);
         }
-        
-        
     }
 }

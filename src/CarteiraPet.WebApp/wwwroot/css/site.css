@@ -84,3 +84,16 @@ body {
   align-items: flex-start;
 }
 
+.f-bold {
+    font-weight: bold;
+}
+
+.btn-edit-vaccines {
+    width: 21rem;
+}
+
+.card-peso{
+    width: 50%;
+    float: left;
+}
+

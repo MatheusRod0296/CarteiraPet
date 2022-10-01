@@ -21,7 +21,17 @@ namespace CarteiraPet.Service
                 }
             }
 
-            return Task.FromResult("data:image/png;base64," +base64);
+            return Task.FromResult("data:image/png;base64," + base64);
+        }
+        
+        public Task<IFormFile> Convert64BaseToImage(string photo)
+        {
+            byte[] bytes = Convert.FromBase64String(photo);
+            MemoryStream stream = new MemoryStream(bytes);
+        
+            IFormFile file = new FormFile(stream, 0, bytes.Length, "Name", "name");
+
+            return Task.FromResult(file);
         }
     }
 }

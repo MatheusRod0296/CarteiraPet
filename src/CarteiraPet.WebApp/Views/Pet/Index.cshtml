@@ -7,13 +7,14 @@
 <div class="d-flex flex-wrap justify-content-center">
    @foreach (var pet in Model)
    {
-       <div class="card" style="width: 16rem; margin: 5px">
-           <img style="width: 250px; height: 250px" src="@Html.DisplayFor(m => pet.Photo)" class="card-img-top" alt="...">
+       <div class="card" style="width: 21rem; margin: 5px">
+           <img style="width: 100%; height: 250px" src="@Html.DisplayFor(m => pet.Photo)" class="card-img-top" alt="...">
            <div class="card-body">
                <h5 class="card-title">@Html.DisplayFor(m => pet.Name)</h5>
                <p class="card-text">@Html.DisplayFor(m => pet.Age)</p>
-   
-               <a href="pet/get/@pet.Id" class="btn btn-primary">Ver carteira</a>
+               <p class="card-text">@Html.DisplayFor(m => pet.Sex)</p>
+               <a href="/pet/get/@pet.Id" class="btn btn-primary">Ver carteira</a>
+               <a href="/pet/EditForm/@pet.Id" class="btn btn-primary">Editar</a>
            </div>
        </div> 
    } 

@@ -6,5 +6,6 @@ namespace CarteiraPet.Domain.Interfaces.Services
     public interface IImageHandlerService
     {
         Task<string> ConvertImageTo64Base(IFormFile file);
+        Task<IFormFile> Convert64BaseToImage(string photo);
     }
 }
